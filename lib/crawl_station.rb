@@ -7,6 +7,7 @@ module CrawlStation # :nodoc:
   extend ActiveSupport::Autoload
 
   autoload :Logger
+  autoload :Utils
 
   class << self
     def env
@@ -31,6 +32,7 @@ module CrawlStation # :nodoc:
 
     def logger=(logger)
       @_logger = logger
+      CrawlStation::Logger.logger = logger
     end
   end
 end
