@@ -1,6 +1,9 @@
 # CrawlStation
 
 [![Build Status](https://travis-ci.org/watsy0007/crawl_station.svg?branch=master)](https://travis-ci.org/watsy0007/crawl_station)
+[![Code Climate](https://codeclimate.com/github/watsy0007/crawl_station/badges/gpa.svg)](https://codeclimate.com/github/watsy0007/crawl_station)
+[![Test Coverage](https://codeclimate.com/github/watsy0007/crawl_station/badges/coverage.svg)](https://codeclimate.com/github/watsy0007/crawl_station/coverage)
+[![Issue Count](https://codeclimate.com/github/watsy0007/crawl_station/badges/issue_count.svg)](https://codeclimate.com/github/watsy0007/crawl_station)
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/crawl_station`. To experiment with that code, run `bin/console` for an interactive prompt.
 
