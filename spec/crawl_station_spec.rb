@@ -9,6 +9,7 @@ describe CrawlStation do
     expect(CrawlStation.env.development?).to be true
     CrawlStation.env = 'production'
     expect(CrawlStation.env.production?).to be true
+    CrawlStation.env = 'development'
   end
 
   it 'has logger ' do

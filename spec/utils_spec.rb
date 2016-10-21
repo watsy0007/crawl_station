@@ -15,5 +15,11 @@ describe CrawlStation::Utils do
   end
 
   it 'get database config' do
+    yaml_text = <<-EOF
+development:
+  host: '0.0.0.0'
+EOF
+    allow(IO).to receive(:read).and_return(yaml_text)
+    expect(utils.database_config[:host]).to eq '0.0.0.0'
   end
 end

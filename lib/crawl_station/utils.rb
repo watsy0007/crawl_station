@@ -1,3 +1,5 @@
+require 'yaml'
+require 'active_support/core_ext'
 module CrawlStation
   module Utils
     class << self
@@ -15,7 +17,8 @@ module CrawlStation
 
       def database_config(module_name = nil)
         result = ERB.new(IO.read(database_path(module_name))).result
-        YAML.load(result).deep_symbolize_keys!.freeze[CS.env.to_sym]
+        puts YAML.load(result).deep_symbolize_keys,CS.env.to_sym
+        ::YAML.load(result).deep_symbolize_keys[CS.env.to_sym]
       end
     end
   end

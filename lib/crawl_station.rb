@@ -24,15 +24,14 @@ module CrawlStation # :nodoc:
 
     def logger
       @_logger ||= begin
-                     CrawlStation::Logger.logger = ::Logger.new(STDERR) do |log|
+                     CrawlStation::Logger.logger ||= ::Logger.new(STDERR) do |log|
                        log.level = ::Logger.DEBUG
                      end
                    end
     end
 
     def logger=(logger)
-      @_logger = logger
-      CrawlStation::Logger.logger = logger
+      @_logger = CrawlStation::Logger.logger = logger
     end
   end
 end
