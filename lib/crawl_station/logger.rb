@@ -3,12 +3,12 @@ module CrawlStation
     class << self
       attr_accessor :logger
       def method_missing(method_name, *args, &block)
-        return logger.send(method_name, *args, &block) if !logger.nil? && logger.respond_to?(method_name)
-        super
+        logger.send(method_name, *args, &block) || super
       end
 
-      def respond_to?(method_name)
-        (logger && logger.respond_to?(method_name)) || super
+      def respond_to_missing?(method_name)
+        return false if logger.nil?
+        logger.respond_to?(method_name) || super
       end
     end
   end
