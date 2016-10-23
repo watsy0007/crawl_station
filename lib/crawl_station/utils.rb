@@ -17,7 +17,6 @@ module CrawlStation
 
       def database_config(module_name = nil)
         result = ERB.new(IO.read(database_path(module_name))).result
-        puts YAML.load(result).deep_symbolize_keys,CS.env.to_sym
         ::YAML.load(result).deep_symbolize_keys[CS.env.to_sym]
       end
     end

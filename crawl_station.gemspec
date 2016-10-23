@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'activesupport', '>= 5.0.0'
+  s.add_dependency 'activerecord', '>= 5.0.0'
   s.add_development_dependency 'bundler', '~> 1.13'
   s.add_development_dependency 'rake', '~> 10.0'
   s.add_development_dependency 'rspec', '~> 3.0'

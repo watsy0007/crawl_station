@@ -1,6 +1,7 @@
 require 'crawl_station/version'
 require 'pathname'
 require 'active_support'
+require 'active_record'
 require 'active_support/dependencies/autoload'
 require 'logger'
 module CrawlStation # :nodoc:
@@ -8,6 +9,27 @@ module CrawlStation # :nodoc:
 
   autoload :Logger
   autoload :Utils
+  autoload :ApplicationRecord
+  autoload :Producer
+  autoload :Launcher
+  autoload :Cache
+  autoload :Schedule
+
+  module ScheduleAdapters
+    extend ActiveSupport::Autoload
+
+    autoload :AbstractAdapter
+    autoload :MemoryAdapter
+    autoload :DbAdapter
+  end
+
+  module CacheAdapters
+    extend ActiveSupport::Autoload
+
+    autoload :AbstractAdapter
+    autoload :MemoryAdapter
+    autoload :DbAdapter
+  end
 
   class << self
     def env
@@ -32,6 +54,34 @@ module CrawlStation # :nodoc:
 
     def logger=(logger)
       @_logger = CrawlStation::Logger.logger = logger
+    end
+
+    def concurrent_count
+      @_concurrent_count = ENV['CRAWL_STATION_CONCURRENT_COUNT'] || 1
+    end
+
+    def concurrent_count=(count)
+      @_concurrent_count = count
+    end
+
+    def schedule
+      Schedule.adapter
+    end
+
+    def schedule=(item)
+      Schedule.adpater(item)
+    end
+
+    def cache
+    end
+
+    def cache=(item)
+    end
+
+    def proxies
+    end
+
+    def proxies(item)
     end
   end
 end

@@ -6,13 +6,14 @@ describe CrawlStation do
   end
 
   it 'station env' do
-    expect(CrawlStation.env.development?).to be true
+    expect(CrawlStation.env.test?).to be true
     CrawlStation.env = 'production'
     expect(CrawlStation.env.production?).to be true
-    CrawlStation.env = 'development'
+    CrawlStation.env = 'test'
   end
 
   it 'has logger ' do
+    CrawlStation.logger = nil
     expect(CrawlStation.logger.class.to_s).to eq 'Logger'
   end
 end
