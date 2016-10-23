@@ -31,6 +31,12 @@ module CrawlStation # :nodoc:
     autoload :DbAdapter
   end
 
+  module Concerns
+    extend ActiveSupport::Autoload
+
+    autoload :AdapterConcern
+  end
+
   class << self
     def env
       @_env ||= ActiveSupport::StringInquirer.new(ENV['CRAWL_STATION_ENV'] || 'development')
