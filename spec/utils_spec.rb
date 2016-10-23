@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CrawlStation::Utils do
+RSpec.describe CrawlStation::Utils do
   let(:utils) { CS::Utils }
   it 'module should under parser directory' do
     expect(utils.module_path('t66y')).to include('/parser/t66y')

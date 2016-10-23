@@ -4,6 +4,8 @@ require 'active_support'
 require 'active_record'
 require 'active_support/dependencies/autoload'
 require 'logger'
+require 'celluloid/debug'
+require 'celluloid/current'
 module CrawlStation # :nodoc:
   extend ActiveSupport::Autoload
 
@@ -63,7 +65,7 @@ module CrawlStation # :nodoc:
     end
 
     def concurrent_count
-      @_concurrent_count = ENV['CRAWL_STATION_CONCURRENT_COUNT'] || 1
+      @_concurrent_count ||= ENV['CRAWL_STATION_CONCURRENT_COUNT'] || 1
     end
 
     def concurrent_count=(count)
@@ -93,3 +95,4 @@ module CrawlStation # :nodoc:
 end
 
 CS = CrawlStation
+Celluloid.boot

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CrawlStation::ApplicationRecord do
+RSpec.describe CrawlStation::ApplicationRecord do
   let(:kodule) { 'T66y' }
   let(:model) { 'Model' }
   let(:module_model) { "#{kodule}::#{model}" }

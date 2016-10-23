@@ -1,11 +1,10 @@
-require 'celluloid'
 module CrawlStation
   class Producer
     include Celluloid
 
     attr_accessor :schedule, :cache, :proxies, :proxy
 
-    def initalize(schedule, cache, proxies)
+    def initialize(schedule, cache, proxies = nil)
       @schdule = schedule
       @cache = cache
       @proxies = proxies
@@ -13,7 +12,8 @@ module CrawlStation
 
     def start
       loop do
-
+        puts 'start ........'
+        puts self.class
       end
     end
   end

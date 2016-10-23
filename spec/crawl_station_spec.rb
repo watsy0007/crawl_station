@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CrawlStation do
+RSpec.describe CrawlStation do
   it 'has a version number' do
     expect(CrawlStation::VERSION).not_to be nil
   end
@@ -15,5 +15,13 @@ describe CrawlStation do
   it 'has logger ' do
     CrawlStation.logger = nil
     expect(CrawlStation.logger.class.to_s).to eq 'Logger'
+  end
+
+  it 'has a concurrent count' do
+    default_count = CrawlStation.concurrent_count
+    expect(CrawlStation.concurrent_count).to eq 1
+    CrawlStation.concurrent_count = 5
+    expect(CrawlStation.concurrent_count).to eq 5
+    CS.concurrent_count = default_count
   end
 end

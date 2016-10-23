@@ -1,5 +1,6 @@
 require 'spec_helper'
-describe CrawlStation::Schedule do
+
+RSpec.describe CrawlStation::Schedule do
   let(:adapter) { CS::Schedule.adapter }
   it 'valid schedule adapter should work' do
     expect(adapter.class.to_s).to include('Memory')

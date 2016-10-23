@@ -1,7 +1,8 @@
 require 'spec_helper'
 
-describe CrawlStation::Cache do
+RSpec.describe CrawlStation::Cache do
   let(:adapter) { CS::Cache.adapter }
+  # after(:each) { CS.logger = nil }
   it 'valid schedule adapter should work' do
     expect(adapter.class.to_s).to include('Memory')
     CS.logger = logger = double

@@ -15,7 +15,6 @@ module CrawlStation
           case adapter_name
           when String, Symbol
             adapter_full_name = "#{adapter_name}_adapter"
-            puts self.class
             @adapter = adapter_module.const_get(adapter_full_name.camelize).new
           end
         rescue NameError => e

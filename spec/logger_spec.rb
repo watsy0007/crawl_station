@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CrawlStation::Logger do
+RSpec.describe CrawlStation::Logger do
   let(:logger) { CS.logger }
   let(:m_logger) { CS::Logger }
   it 'check proxy logger method' do
