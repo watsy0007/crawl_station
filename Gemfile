@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in crawl_station.gemspec
 gemspec
 
+gem 'thor'
 gem 'celluloid', github: 'celluloid/celluloid', submodules: true
 
 group :test do

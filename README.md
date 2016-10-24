@@ -4,6 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/watsy0007/crawl_station/badges/gpa.svg)](https://codeclimate.com/github/watsy0007/crawl_station)
 [![Test Coverage](https://codeclimate.com/github/watsy0007/crawl_station/badges/coverage.svg)](https://codeclimate.com/github/watsy0007/crawl_station/coverage)
 [![Issue Count](https://codeclimate.com/github/watsy0007/crawl_station/badges/issue_count.svg)](https://codeclimate.com/github/watsy0007/crawl_station)
+[![Dependency Status](https://gemnasium.com/badges/github.com/watsy0007/crawl_station.svg)](https://gemnasium.com/github.com/watsy0007/crawl_station)
 
 ## Installation
 
