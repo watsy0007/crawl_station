@@ -16,6 +16,7 @@ module CrawlStation # :nodoc:
   autoload :Launcher
   autoload :Cache
   autoload :Schedule
+  autoload :ParseStruct, 'crawl_station/fundation/parse_struct'
 
   module ScheduleAdapters
     extend ActiveSupport::Autoload
@@ -62,6 +63,10 @@ module CrawlStation # :nodoc:
 
     def logger=(logger)
       @_logger = CrawlStation::Logger.logger = logger
+    end
+
+    def parser_module_path
+      'parser'
     end
 
     def concurrent_count

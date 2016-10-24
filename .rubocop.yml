@@ -48,7 +48,7 @@ Style/IndentationConsistency:
 
 # Two spaces, no tabs (for indentation).
 Style/IndentationWidth:
-  Enabled: true
+  Enabled: false
 
 # Defining a method with parameters needs parentheses.
 Style/MethodDefParentheses:
