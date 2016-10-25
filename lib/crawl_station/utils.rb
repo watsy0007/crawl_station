@@ -4,7 +4,7 @@ module CrawlStation
   module Utils
     class << self
       def module_path(module_name)
-        "#{CS.root}/parser/#{module_name}"
+        "#{CS.root}/module/#{module_name}"
       end
 
       def database_path(module_name = nil)
@@ -18,6 +18,18 @@ module CrawlStation
       def database_config(module_name = nil)
         result = ERB.new(IO.read(database_path(module_name))).result
         ::YAML.load(result).deep_symbolize_keys[CS.env.to_sym]
+      end
+
+      def templates_path
+        "#{gem_path}/templates"
+      end
+
+      def template_filepath(path)
+        "#{templates_path}/#{path}"
+      end
+
+      def gem_path
+        File.expand_path('../../', __FILE__)
       end
     end
   end

@@ -1,0 +1,10 @@
+module <%= module_class_name %>
+  module Parser
+    class <%= class_name %>
+      include Wombat::Crawler
+
+      # title xpath: "//div[@class='title']"
+      # sub_title css: 'div.sub_title'
+    end
+  end
+end

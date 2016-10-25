@@ -6,8 +6,8 @@ module CrawlStation
       def create(args)
         dir_root = args.first
         puts "create project #{dir_root}"
-        curr_path = File.expand_path('../../', __FILE__)
-        FileUtils.copy_entry "#{curr_path}/templates/create", dir_root
+        template_create_path = "#{CrawlStation::Utils.templates_path}/create"
+        FileUtils.copy_entry template_create_path, dir_root
         puts "cd #{dir_root}"
         path = "#{Dir.pwd}/#{dir_root}"
         Dir.chdir(path)

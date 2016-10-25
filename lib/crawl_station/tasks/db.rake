@@ -1,7 +1,7 @@
 namespace :db do
   def db_operation(operator)
     Rake::Task["db:#{operator}"].invoke('crawl_station')
-    Dir["#{CrawlStation.root}/parser/*"].each do |dir|
+    Dir["#{CrawlStation.root}/module/*"].each do |dir|
       module_name = dirr.split('/').last
       Rake::Task["db:#{operator}"].invoke(module_name)
     end
@@ -21,8 +21,7 @@ namespace :db do
     module_name = args[:module_name]
     return db_operation(:migrate) if module_name.nil?
     path = if module_name == 'crawl_station'
-             curr_path = File.expand_path('../../', __FILE__)
-             "#{curr_path}/db/migrate"
+             "#{CrawlStation::Utils.gems_path}/db/migrate"
            else
              "#{CrawlStation::Utils.module_path(module_name)}/db/migrate"
            end
