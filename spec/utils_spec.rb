@@ -22,4 +22,9 @@ EOF
     allow(IO).to receive(:read).and_return(yaml_text)
     expect(utils.database_config[:host]).to eq '0.0.0.0'
   end
+
+  it 'valid template file path' do
+    expect(utils).to receive(:gem_path).and_return('/tmp')
+    expect(utils.template_filepath('demo')).to eq '/tmp/crawl_station/templates/demo'
+  end
 end
