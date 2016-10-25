@@ -12,7 +12,7 @@ module CrawlStation
         path = "#{Dir.pwd}/#{dir_root}"
         Dir.chdir(path)
         puts 'bundle install'
-        IO.popen('bundle install').each { |line| p line.chomp }
+        IO.popen('bundle install').each { |line| puts line.chomp }
         puts 'done'
       end
     end
