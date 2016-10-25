@@ -1,5 +1,7 @@
 module CrawlStation
   module Command
+    class CommandError < Exception
+    end
     extend self
     ALIASES = { 'module' => 'new_module' }
 

@@ -2,7 +2,6 @@ require 'crawl_station/ruby_version_check'
 Signal.trap('INT') { puts; exit(1) }
 require 'crawl_station'
 
-puts ARGV
 if ARGV.size > 0
   command = ARGV.shift
 
