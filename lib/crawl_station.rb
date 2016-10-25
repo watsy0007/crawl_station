@@ -105,6 +105,10 @@ module CrawlStation # :nodoc:
 
     def proxies(item)
     end
+
+    def load_tasks
+      Dir['tasks/*.rake'].each { |f| load(f) }
+    end
   end
 end
 
