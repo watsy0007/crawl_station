@@ -11,13 +11,17 @@ if ARGV.size > 0
     'g' => 'generate'
   }
   command = aliases[command] || command
-  return CrawlStation::Command.invoke(command, ARGV)
+  CrawlStation::Command.invoke(command, ARGV)
+  exit(0)
 end
 
+puts "usage:\n"
 %w(
   create
   generate
 ).each do |command|
-  klass = "#{CrawlStation::Command}::#{command.capitalize}".camelize.constanize
-  puts klass.methods
+  klass = "#{CrawlStation::Command}::#{command.capitalize}".camelize.constantize
+  klass.tasks.each do |k, v|
+    puts "#{k}: #{v.usage}\n\t#{v.description}\n"
+  end
 end

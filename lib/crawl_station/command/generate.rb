@@ -3,7 +3,7 @@ require 'fileutils'
 module CrawlStation
   module Command
     class Generate < Thor
-      desc 'generation migration', ''
+      desc 'generation migration', 'station g migration t66y create_tech_migration'
       def migration(args)
         raise "generate #{args} error" unless args.is_a?(Array) || args.size < 2
         module_name, file_name = args.shift, args.shift
@@ -16,7 +16,7 @@ module CrawlStation
         logs "#{e.message}\n#{e.bnacktrace[0..10].join("\n")}"
       end
 
-      desc 'create parser module', ''
+      desc 'create parser module', 'station g module t66y'
       def new_module(args)
         raise "create module #{args} error" unless args.is_a?(Array) || args.empty?
         module_name = args.shift
@@ -28,7 +28,7 @@ module CrawlStation
         logs "create #{module_name} done"
       end
 
-      desc 'create parser', ''
+      desc 'create parser', 'station g parser t66y tech'
       def parser(args)
         raise "generate parser #{args} error" unless args.is_a?(Array) || args.size < 2
         module_name, parser = args.shift, args.shift

@@ -2,7 +2,7 @@ require 'fileutils'
 module CrawlStation
   module Command
     class Create < Thor
-      desc 'create station', 'create crawl station'
+      desc 'create station', 'station create hello'
       def create(args)
         dir_root = args.first
         puts "create project #{dir_root}"
