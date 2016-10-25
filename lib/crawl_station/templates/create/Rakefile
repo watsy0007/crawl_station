@@ -1,0 +1,2 @@
+require_relative './config/boot'
+CrawlStation.load_tasks

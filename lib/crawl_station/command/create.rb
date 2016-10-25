@@ -5,9 +5,8 @@ module CrawlStation
       desc 'create station', 'create crawl station'
       def create(args)
         dir_root = args.first
-        FileUtils.mkdir_p(dir_root)
-        dirs = %w(config/initializers lib/tasks module)
-        dirs.each { |dir| FileUtils.mkdir_p("#{dir_root}/#{dir}") }
+        curr_path = File.expand_path('../../', __FILE__)
+        FileUtils.copy_entry "#{curr_path}/templates/create", dir_root
       end
     end
   end
