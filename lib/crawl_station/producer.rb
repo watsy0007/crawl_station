@@ -12,19 +12,20 @@ module CrawlStation
 
     def start
       loop { break unless loop_parser }
-      Logger.debug 'done'
+      Logger.debug "#{self} done"
     end
 
     def loop_parser
-      return sleep(0.2) if @schedule.empty?
+      return sleep(0.2) || true if @schedule.empty?
       item = @schedule.pop
-      return sleep(0.2) if parsed?(item)
+      return sleep(0.2) || true if parsed?(item)
       Logger.debug "start parse #{item.link}"
       data = parse_item(item)
-      return if data.nil? || data.empty?
+      return true if data.nil? || data.empty?
       data = parse_links(data, item.namespace)
-      return if data.empty?
+      return true if data.empty?
       item.item_class.new.save(item.link, data)
+      true
     end
 
     def parse_item(item)
