@@ -107,7 +107,11 @@ module CrawlStation # :nodoc:
     end
 
     def load_tasks
-      Dir['tasks/*.rake'].each { |f| load(f) }
+      task_path = File.expand_path('../', __FILE__)
+      [
+        "#{task_path}/crawl_station/tasks/*.rake",
+        "#{CrawlStation.root}/lib/tasks/**/*.rake"
+      ].each { |path| Dir[path].each { |f| load f } }
     end
   end
 end
