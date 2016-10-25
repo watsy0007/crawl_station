@@ -21,7 +21,7 @@ module CrawlStation
       end
 
       def templates_path
-        "#{gem_path}/templates"
+        "#{gem_path}/crawl_station/templates"
       end
 
       def template_filepath(path)
