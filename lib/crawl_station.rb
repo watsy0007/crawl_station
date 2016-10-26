@@ -52,7 +52,7 @@ module CrawlStation # :nodoc:
 
   class << self
     def config
-      yield self if block_given?
+      yield @config if block_given?
     end
 
     def env
@@ -77,10 +77,6 @@ module CrawlStation # :nodoc:
 
     def logger=(logger)
       @_logger = CrawlStation::Logger.logger = logger
-    end
-
-    def parser_module_path
-      'parser'
     end
 
     def concurrent_count
@@ -129,13 +125,13 @@ module CrawlStation # :nodoc:
 
     def init_application
       @config ||= CrawlStation::Configuration
-      Dir["#{CS.root}/config/initializers/**/*.rb"].each { |f| puts f; require f }
+      Dir["#{CS.root}/config/initializers/**/*.rb"].each { |f| require f }
     end
 
     def config_adapter
       adapter = @config.adapter || 'memory'
-      CS.schedule(adapter)
-      CS.cache(adapter)
+      schedule = adapter
+      cache = adapter
     end
 
     def boot
