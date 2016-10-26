@@ -10,4 +10,11 @@ RSpec.describe CrawlStation::ScheduleAdapters::MemoryAdapter do
     obj.push(1)
     expect(obj.pop).to eq 1
   end
+
+  it 'failed & done' do
+    item = double()
+    expect(CS.logger).to receive(:debug)
+    expect(item).to receive(:link)
+    obj.failed(item)
+  end
 end

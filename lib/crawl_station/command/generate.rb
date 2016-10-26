@@ -12,8 +12,6 @@ module CrawlStation
         template_path = CS::Utils.template_filepath('generate/migration.erb')
         render(file_path, template_path, class_name: file_name.camelize)
         logs "generate migration #{module_name}:#{file_name} done"
-      rescue Errno::ENOENT, RuntimeError => e
-        logs "#{e.message}\n#{e.backtrace[0..10].join("\n")}"
       end
 
       desc 'create parser module', 'station g module t66y'
@@ -26,8 +24,6 @@ module CrawlStation
         template_m_path = "#{CS::Utils.templates_path}/generate/module"
         FileUtils.copy_entry template_m_path, m_path
         logs "create #{module_name} done"
-      rescue Errno::ENOENT, RuntimeError => e
-        logs "#{e.message}\n#{e.backtrace[0..10].join("\n")}"
       end
 
       desc 'create parser', 'station g parser t66y tech'

@@ -20,11 +20,8 @@ namespace :db do
     version = ENV['VERSION']
     module_name = args[:module_name]
     return db_operation(:migrate) if module_name.nil?
-    path = if module_name == 'crawl_station'
-             "#{CrawlStation::Utils.gems_path}/db/migrate"
-           else
-             "#{CrawlStation::Utils.module_path(module_name)}/db/migrate"
-           end
+    path = "#{CrawlStation::Utils.module_path(module_name)}/db/migrate"
+    path = "#{CrawlStation::Utils.gems_path}/db/migrate" if module_name == 'crawl_station'
     ActiveRecord::Migrator.migrate(path, version ? version.to_i : nil)
   end
 

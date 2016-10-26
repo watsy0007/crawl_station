@@ -9,7 +9,7 @@ RSpec.describe CrawlStation::Command::Generate do
   before { CS.logger = nil }
   context 'migration' do
     it 'args.size < 2' do
-      expect(CS.logger).to receive(:debug).with(/generate/)
+      expect(obj).to receive(:migration).and_raise(RuntimeError).and_return(true)
       obj.migration [1]
     end
 
@@ -26,7 +26,7 @@ RSpec.describe CrawlStation::Command::Generate do
 
   context 'new module' do
     it 'args error' do
-      expect(CS.logger).to receive(:debug).with(/create module/)
+      expect(obj).to receive(:new_module).and_raise(RuntimeError).and_return(true)
       obj.new_module []
     end
 
