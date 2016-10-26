@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rake'
 gem 'thor'
 gem 'celluloid', github: 'celluloid/celluloid', submodules: true
+gem 'wombat', github: 'watsy0007/wombat'
 gem 'crawl_station'
 
 group :development do

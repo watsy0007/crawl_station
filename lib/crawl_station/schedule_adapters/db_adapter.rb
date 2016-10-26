@@ -7,6 +7,12 @@ module CrawlStation
       end
       def empty?
       end
+
+      def failed(_item)
+      end
+
+      def done(_item)
+      end
     end
   end
 end

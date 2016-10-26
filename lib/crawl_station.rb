@@ -95,9 +95,11 @@ module CrawlStation # :nodoc:
     end
 
     def cache
+      Cache.adapter
     end
 
     def cache=(item)
+      Cache.adapter(item)
     end
 
     def proxies
@@ -112,6 +114,12 @@ module CrawlStation # :nodoc:
         "#{task_path}/crawl_station/tasks/*.rake",
         "#{CrawlStation.root}/lib/tasks/**/*.rake"
       ].each { |path| Dir[path].each { |f| load f } }
+    end
+
+    def load_modules
+      %w(item parser config).each do |path|
+        Dir["#{CS.root}/module/*/#{path}/**/*.rb"].each { |f| require f }
+      end
     end
   end
 end

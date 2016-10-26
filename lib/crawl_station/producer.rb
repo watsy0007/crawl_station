@@ -29,7 +29,7 @@ module CrawlStation
     end
 
     def parse_item(item)
-      data = cache(item) { item.parse_class.new.crawl(item.link) }
+      data = cache(item) { item.parser_class.new.crawl(item.link) }
       @schedule.done(item)
       data
     rescue Exception => e

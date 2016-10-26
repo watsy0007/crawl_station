@@ -5,6 +5,7 @@ gemspec
 
 gem 'thor'
 gem 'celluloid', github: 'celluloid/celluloid', submodules: true
+gem 'wombat', github: 'watsy0007/wombat'
 
 group :test do
   gem 'byebug'
