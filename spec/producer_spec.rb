@@ -62,7 +62,7 @@ RSpec.describe CrawlStation::Producer do
     expect(cache).to receive(:[]=).twice
     expect(item).to receive(:[]).and_return('www.baidu.com').twice
     expect(item).to receive(:link).and_return('www.baidu.com')
-    expect(item).to receive_message_chain('parse_class.new.crawl') { nil }
+    expect(item).to receive_message_chain('parser_class.new.crawl') { nil }
     expect(schedule).to receive(:done)
     producer.parse_item(item)
   end

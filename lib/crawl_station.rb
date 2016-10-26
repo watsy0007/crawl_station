@@ -10,6 +10,7 @@ require 'celluloid/current'
 module CrawlStation # :nodoc:
   extend ActiveSupport::Autoload
 
+  autoload :Configuration
   autoload :Logger
   autoload :Utils
   autoload :ApplicationRecord
@@ -50,6 +51,10 @@ module CrawlStation # :nodoc:
   end
 
   class << self
+    def config
+      yield self if block_given?
+    end
+
     def env
       @_env ||= ActiveSupport::StringInquirer.new(ENV['CRAWL_STATION_ENV'] || 'development')
     end
@@ -120,6 +125,23 @@ module CrawlStation # :nodoc:
       %w(item parser config).each do |path|
         Dir["#{CS.root}/module/*/#{path}/**/*.rb"].each { |f| require f }
       end
+    end
+
+    def init_application
+      @config ||= CrawlStation::Configuration
+      Dir["#{CS.root}/config/initializers/**/*.rb"].each { |f| puts f; require f }
+    end
+
+    def config_adapter
+      adapter = @config.adapter || 'memory'
+      CS.schedule(adapter)
+      CS.cache(adapter)
+    end
+
+    def boot
+      init_application
+      load_modules
+      config_adapter
     end
   end
 end
