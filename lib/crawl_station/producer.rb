@@ -18,7 +18,7 @@ module CrawlStation
     def loop_parser
       return sleep(0.2) || true if @schedule.empty?
       item = @schedule.pop
-      tem = CS::ParseStruct.new(item) if item.is_a?(Hash)
+      item = CS::ParseStruct.new(item) if item.is_a?(Hash)
       return sleep(0.2) || true if parsed?(item)
       Logger.debug "start parse #{item.link}"
       data = parse_item(item)
