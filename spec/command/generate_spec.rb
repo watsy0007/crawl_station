@@ -44,12 +44,14 @@ RSpec.describe CrawlStation::Command::Generate do
   it 'new parser' do
     expect(CS.logger).to receive(:debug)
     expect(utils).to receive(:template_filepath).with('generate/parser.erb').and_return(module_name)
-    expect(obj).to receive(:parser_path).with(module_name, parser_name).and_return('')
+    expect(utils).to receive(:template_filepath).with('generate/item.erb').and_return(module_name)
+    expect(obj).to receive(:parser_path).with(module_name, parser_name, 'parser').and_return('')
+    expect(obj).to receive(:parser_path).with(module_name, parser_name, 'item').and_return('')
     opts = {
       module_class_name: module_name.camelize,
       class_name: parser_name.camelize
     }
-    expect(obj).to receive(:render).with('', module_name, opts)
+    expect(obj).to receive(:render).with('', module_name, opts).twice
     obj.parser [module_name, parser_name]
   end
 

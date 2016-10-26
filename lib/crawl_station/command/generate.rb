@@ -31,12 +31,14 @@ module CrawlStation
         raise "generate parser #{args} error" if !args.is_a?(Array) || args.size < 2
         module_name, parser_name = args.shift, args.shift
         logs "create #{module_name} parser #{parser_name}"
-        template_path = CS::Utils.template_filepath('generate/parser.erb')
+        template_parser_path = CS::Utils.template_filepath('generate/parser.erb')
+        template_item_path = CS::Utils.template_filepath('generate/item.erb')
         opts = {
           module_class_name: module_name.camelize,
           class_name: parser_name.camelize
         }
-        render(parser_path(module_name, parser_name), template_path, opts)
+        render(parser_path(module_name, parser_name, 'parser'), template_parser_path, opts)
+        render(parser_path(module_name, parser_name, 'item'), template_item_path, opts)
       end
 
       desc 'create parsers', 'station g parser t66y tech image japan'
@@ -76,10 +78,10 @@ module CrawlStation
         "#{migrate_path}/#{ms}_#{file_name}.rb"
       end
 
-      def parser_path(module_name, file_name)
+      def parser_path(module_name, file_name, type = 'parser')
         m_path = CrawlStation::Utils.module_path(module_name)
         raise "module: #{module_name} not exist" unless Dir.exist?(m_path)
-        "#{m_path}/parser/#{file_name}.rb"
+        "#{m_path}/#{type}/#{file_name}.rb"
       end
     end
   end
