@@ -39,6 +39,16 @@ module CrawlStation
         render(parser_path(module_name, parser_name), template_path, opts)
       end
 
+      desc 'create parsers', 'station g parser t66y tech image japan'
+      def parsers(args)
+        raise "generate parser #{args} error" if !args.is_a?(Array) || args.size < 2
+        module_name = args.shift
+        loop do
+          break if args.empty?
+          parser([module_name, args.shift])
+        end
+      end
+
       protected
 
       def render(file_path, template_path, opts = {})

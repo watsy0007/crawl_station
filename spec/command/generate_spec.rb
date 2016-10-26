@@ -53,6 +53,11 @@ RSpec.describe CrawlStation::Command::Generate do
     obj.parser [module_name, parser_name]
   end
 
+  it 'new parsers' do
+    expect(obj).to receive(:parser).twice
+    obj.parsers ['t66y', 'tech', 'image']
+  end
+
   it 'dest path' do
     m_path = '/tmp'
     expect(utils).to receive(:module_path).with(module_name).and_return(m_path)
