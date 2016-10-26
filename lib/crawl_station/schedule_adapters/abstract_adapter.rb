@@ -9,7 +9,6 @@ module CrawlStation
       end
 
       def failed(item)
-        CS.logger.debug("#{item.link} failed")
       end
 
       def done(item)
