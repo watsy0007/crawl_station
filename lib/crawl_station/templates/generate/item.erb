@@ -1,7 +1,8 @@
 module <%= module_class_name %>
   module Item
     class <%= class_name %>
-      def save(data)
+      def save(link, data)
+        puts "#{link}\n#{data}"
       end
     end
   end
