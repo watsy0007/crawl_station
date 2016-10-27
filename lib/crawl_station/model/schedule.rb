@@ -1,7 +1,7 @@
 module CrawlStation
   module Model
     class Schedule < ApplicationRecord
-      include ParserClassConcern
+      include Concerns::ParserClassConcern
       establish_connection database_config
 
       enum status: [:waiting, :progressing, :done, :failed]

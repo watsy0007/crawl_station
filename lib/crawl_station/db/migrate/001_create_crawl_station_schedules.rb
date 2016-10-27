@@ -1,4 +1,4 @@
-class CreateCrawlStationSchedules < ActiveSupport::Migration[5.0]
+class CreateCrawlStationSchedules < ActiveRecord::Migration[5.0]
   def change
     create_table :crawl_station_schedules do |t|
       t.string :namespace

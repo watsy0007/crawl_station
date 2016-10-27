@@ -1,0 +1,19 @@
+default: &default
+  adapter: 'mysql2'
+  host: <%%= ENV['CRAWL_STATION_DBHOST'] || '0.0.0.0' %>
+  port: <%%= ENV['CRAWL_STATION_DBPORT'] || 3306 %>
+  username: <%%= ENV['CRAWL_STATION_DBUSERNAME'] || 'root' %>
+  password: <%%= ENV['CRAWL_STATION_DBPASSWORD'] || 'my-secret-pw' %>
+  database: <%%= ENV['CRAWL_STATION_DBDATABASE'] || '<%= project_name %>_default' %>
+
+development:
+  <<: *default
+  database: <%%= ENV['CRAWL_STATION_DBDATABASE'] || '<%= project_name %>_development' %>
+
+test:
+  <<: *default
+  database: <%%= ENV['CRAWL_STATION_DBDATABASE'] || '<%= project_name %>_test' %>
+
+product:
+  <<: *default
+  database: <%%= ENV['CRAWL_STATION_DBDATABASE'] || '<%= project_name %>_product' %>

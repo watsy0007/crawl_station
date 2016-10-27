@@ -1,4 +1,4 @@
-class CreateCrawlStationCache < ActiveSupport::Migration[5.0]
+class CreateCrawlStationCaches < ActiveRecord::Migration[5.0]
   def change
     create_table :crawl_station_caches do |t|
       t.string :key, index: true

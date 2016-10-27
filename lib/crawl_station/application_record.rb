@@ -11,7 +11,7 @@ module CrawlStation
     end
 
     def self.module_name
-      name.to_s.split('::').first.downcase
+      name.to_s.split('::').first.underscore
     end
   end
 end

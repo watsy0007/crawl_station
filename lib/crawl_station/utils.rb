@@ -43,7 +43,7 @@ module CrawlStation
       end
 
       def gem_path
-        File.expand_path('../../', __FILE__)
+        File.expand_path('../../crawl_station/', __FILE__)
       end
     end
   end
