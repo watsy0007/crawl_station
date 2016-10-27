@@ -61,6 +61,6 @@ module CrawlStation # :nodoc:
 end
 
 CS = CrawlStation
-CS.extend(CS::Concerns::CrawlStationClass)
+CS.send(:include, CS::Concerns::CrawlStationClass)
 
 Celluloid.boot

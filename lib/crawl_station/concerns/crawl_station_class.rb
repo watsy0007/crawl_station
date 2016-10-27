@@ -64,9 +64,10 @@ module CrawlStation
         end
 
         def load_tasks
-          task_path = File.expand_path('../', __FILE__)
+          task_path = File.expand_path('../../', __FILE__)
+          puts task_path
           [
-            "#{task_path}/crawl_station/tasks/*.rake",
+            "#{task_path}/tasks/*.rake",
             "#{CrawlStation.root}/lib/tasks/**/*.rake"
           ].each { |path| Dir[path].each { |f| load f } }
         end
