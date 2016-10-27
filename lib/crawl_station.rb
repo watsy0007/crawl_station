@@ -134,10 +134,16 @@ module CrawlStation # :nodoc:
       cache = adapter
     end
 
+    def config_parsers
+      parsers = @config.parsers || []
+      parsers.each { |p| schedule.push p }
+    end
+
     def boot
       init_application
       load_modules
       config_adapter
+      config_parsers
     end
   end
 end

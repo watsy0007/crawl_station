@@ -14,7 +14,7 @@ module CrawlStation
     rescue NameError => e
       Logger.warn "#{command}: #{args} not exist"
     rescue Errno::ENOENT, RuntimeError => e
-      logs "#{e.message}\n#{e.backtrace[0..10].join("\n")}"
+      Logger.warn "#{e.message}\n#{e.backtrace[0..10].join("\n")}"
     end
 
     def method_name(command, args)

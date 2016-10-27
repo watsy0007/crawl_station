@@ -24,6 +24,7 @@ Or install it yourself as:
 
 ## Usage
 
+[![asciicast](https://asciinema.org/a/5hknsm1bx3lqndmb2021j5cix.png)](https://asciinema.org/a/5hknsm1bx3lqndmb2021j5cix)
 
 ## Development
 
