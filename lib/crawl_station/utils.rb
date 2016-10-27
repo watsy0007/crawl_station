@@ -20,6 +20,20 @@ module CrawlStation
         ::YAML.load(result).deep_symbolize_keys[CS.env.to_sym]
       end
 
+      def create_database(module_name)
+        config = database_config(module_name)
+        ActiveRecord::Base.logger = CS.logger
+        begin
+          ActiveRecord::Base.establish_connection config
+          ActiveRecord::Base.connection
+        rescue
+          ActiveRecord::Base.establish_connection config.merge(database: nil)
+          ActiveRecord::Base.connection.create_database config[:database]
+        else
+          CS.logger.debug "database: #{config[:database]} already exist"
+        end
+      end
+
       def templates_path
         "#{gem_path}/crawl_station/templates"
       end

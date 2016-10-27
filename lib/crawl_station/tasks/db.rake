@@ -29,7 +29,7 @@ namespace :db do
       exit(0)
     end
     path = "#{CrawlStation::Utils.module_path(module_name)}/db/migrate"
-    path = "#{CrawlStation::Utils.gems_path}/db/migrate" if module_name == 'crawl_station'
+    path = "#{CrawlStation::Utils.gem_path}/db/migrate" if module_name == 'crawl_station'
     ActiveRecord::Migrator.migrate(path, version ? version.to_i : nil)
   end
 

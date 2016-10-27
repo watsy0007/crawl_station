@@ -1,5 +1,6 @@
 # CrawlStation
 
+[![Gem Version](https://badge.fury.io/rb/crawl_station.svg)](https://badge.fury.io/rb/crawl_station)
 [![Build Status](https://travis-ci.org/watsy0007/crawl_station.svg?branch=master)](https://travis-ci.org/watsy0007/crawl_station)
 [![Code Climate](https://codeclimate.com/github/watsy0007/crawl_station/badges/gpa.svg)](https://codeclimate.com/github/watsy0007/crawl_station)
 [![Test Coverage](https://codeclimate.com/github/watsy0007/crawl_station/badges/coverage.svg)](https://codeclimate.com/github/watsy0007/crawl_station/coverage)
