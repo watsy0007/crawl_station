@@ -2,6 +2,7 @@ require 'ostruct'
 module CrawlStation
   class ParseStruct
     extend Forwardable
+    include ParserClassConcern
     attr_accessor :parse
 
     %w(namespace parser item link).each do |method_name|
@@ -12,16 +13,6 @@ module CrawlStation
     def initialize(opts = {})
       @parse = opts
       @parse.deep_symbolize_keys!
-    end
-
-    def parser_class
-      path = "#{namespace}/parser/#{parser}"
-      path.camelize.constantize
-    end
-
-    def item_class
-      path = "#{namespace}/item/#{parser}"
-      path.camelize.constantize
     end
 
     def [](item)
