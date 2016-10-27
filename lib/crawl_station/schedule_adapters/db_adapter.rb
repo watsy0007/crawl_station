@@ -2,6 +2,7 @@ module CrawlStation
   module ScheduleAdapters
     class DbAdapter < AbstractAdapter
       def push(item)
+        item = ParseStruct.new(item) if item.is_a?(Hash)
         schedule.new(
           parser: item.parser,
           namespace: item.namespace,

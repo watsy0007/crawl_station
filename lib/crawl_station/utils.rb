@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'yaml'
 require 'active_support/core_ext'
 module CrawlStation
@@ -29,13 +30,11 @@ module CrawlStation
         rescue
           ActiveRecord::Base.establish_connection config.merge(database: nil)
           ActiveRecord::Base.connection.create_database config[:database]
-        else
-          CS.logger.debug "database: #{config[:database]} already exist"
         end
       end
 
       def templates_path
-        "#{gem_path}/crawl_station/templates"
+        "#{gem_path}/templates"
       end
 
       def template_filepath(path)
@@ -44,6 +43,15 @@ module CrawlStation
 
       def gem_path
         File.expand_path('../../crawl_station/', __FILE__)
+      end
+
+      def render_context(path, opts = {})
+        template = IO.read(path)
+        ERB.new(template).result(OpenStruct.new(opts).instance_eval { binding })
+      end
+
+      def render(dest_path, context)
+        File.open(dest_path,'w+') { |f| f.write context }
       end
     end
   end

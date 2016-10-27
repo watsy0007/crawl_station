@@ -9,7 +9,7 @@ module CrawlStation
         module_name, file_name = args.shift, args.shift
 
         file_path = dest_path(module_name, file_name)
-        template_path = CS::Utils.template_filepath('generate/migration.erb')
+        template_path = utils.template_filepath('generate/migration.erb')
         render(file_path, template_path, class_name: file_name.camelize)
         logs "generate migration #{module_name}:#{file_name} done"
       end
@@ -18,10 +18,10 @@ module CrawlStation
       def new_module(args)
         raise "create module #{args} error" if !args.is_a?(Array) || args.empty?
         module_name = args.shift
-        m_path = CS::Utils.module_path(module_name)
+        m_path = utils.module_path(module_name)
         return logs("#{module_name} module exist!") if File.exist?(m_path)
         logs "create new module #{module_name}"
-        template_m_path = "#{CS::Utils.templates_path}/generate/module"
+        template_m_path = "#{utils.templates_path}/generate/module"
         FileUtils.copy_entry template_m_path, m_path
         logs "create #{module_name} done"
       end
@@ -31,8 +31,8 @@ module CrawlStation
         raise "generate parser #{args} error" if !args.is_a?(Array) || args.size < 2
         module_name, parser_name = args.shift, args.shift
         logs "create #{module_name} parser #{parser_name}"
-        template_parser_path = CS::Utils.template_filepath('generate/parser.erb')
-        template_item_path = CS::Utils.template_filepath('generate/item.erb')
+        template_parser_path = utils.template_filepath('generate/parser.erb')
+        template_item_path = utils.template_filepath('generate/item.erb')
         opts = {
           module_class_name: module_name.camelize,
           class_name: parser_name.camelize
@@ -54,23 +54,20 @@ module CrawlStation
       protected
 
       def render(file_path, template_path, opts = {})
-        File.open(file_path, 'w') do |f|
-          logs "create file #{file_path}"
-          f.write render_context(template_path, opts)
-        end
+        context = utils.render_context(template_path, opts)
+        utils.render(file_path, context)
       end
 
-      def render_context(path, opts = {})
-        template = IO.read(path)
-        ERB.new(template).result(OpenStruct.new(opts).instance_eval { binding })
+      def utils
+        CS::Utils
       end
 
       def logs(msg)
-        CrawlStation.logger.debug msg
+        CS.logger.debug msg
       end
 
       def dest_path(module_name, file_name)
-        m_path = CrawlStation::Utils.module_path(module_name)
+        m_path = utils.module_path(module_name)
         raise "module: #{module_name} not exist" unless Dir.exist?(m_path)
         migrate_path = "#{m_path}/db/migrate"
         raise "module: migration path #{migrate_path} not exist" unless Dir.exist?(migrate_path)
@@ -79,7 +76,7 @@ module CrawlStation
       end
 
       def parser_path(module_name, file_name, type = 'parser')
-        m_path = CrawlStation::Utils.module_path(module_name)
+        m_path = utils.module_path(module_name)
         raise "module: #{module_name} not exist" unless Dir.exist?(m_path)
         "#{m_path}/#{type}/#{file_name}.rb"
       end

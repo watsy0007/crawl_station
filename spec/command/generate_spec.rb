@@ -75,19 +75,10 @@ RSpec.describe CrawlStation::Command::Generate do
     expect(obj.send(:parser_path, module_name, parser_name)).to match(/#{parser_name}/)
   end
 
-  it 'valid render context' do
-    content = '<%= class_name %>'
-    expect(IO).to receive(:read).with(module_name).and_return(content)
-    result = obj.send(:render_context, module_name, class_name: module_name)
-    expect(result).to eq module_name
-  end
-
   it 'valid render method' do
-    io = double()
-    expect(File).to receive(:open).with(module_name, 'w').and_yield(io)
-    expect(obj).to receive(:render_context).and_return(module_name)
-    expect(io).to receive(:write).with(module_name)
-    expect(CS.logger).to receive(:debug).with(/#{module_name}/)
+    module_name = 'project'
+    expect(utils).to receive(:render_context).and_return('')
+    expect(utils).to receive(:render).with(module_name, '')
     obj.send(:render, module_name, '')
   end
 end

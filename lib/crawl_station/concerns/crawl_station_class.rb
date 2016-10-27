@@ -46,7 +46,7 @@ module CrawlStation
         end
 
         def schedule=(item)
-          Schedule.adpater(item)
+          Schedule.adapter = item
         end
 
         def cache
@@ -54,7 +54,7 @@ module CrawlStation
         end
 
         def cache=(item)
-          Cache.adapter(item)
+          Cache.adapter = item
         end
 
         def proxies
@@ -84,8 +84,8 @@ module CrawlStation
 
         def config_adapter
           adapter = @config.adapter || 'memory'
-          schedule = adapter
-          cache = adapter
+          CS.schedule = adapter
+          CS.cache = adapter
         end
 
         def config_parsers

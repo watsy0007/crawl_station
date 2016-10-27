@@ -13,6 +13,7 @@ module CrawlStation
       def recent_schedule
         schedule.progressed.recent_1_day
       end
+
       def schedule
         @_schedule ||= CS::Model::Schedule
       end

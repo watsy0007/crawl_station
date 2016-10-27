@@ -1,7 +1,5 @@
 module CrawlStation
   module Command
-    class CommandError < Exception
-    end
     extend self
     ALIASES = { 'module' => 'new_module' }
 
@@ -11,8 +9,6 @@ module CrawlStation
       obj = klass.new
       return obj.send(m_name, args) if obj.respond_to?(m_name)
       true
-    rescue NameError => e
-      Logger.warn "#{command}: #{args} not exist"
     rescue Errno::ENOENT, RuntimeError => e
       Logger.warn "#{e.message}\n#{e.backtrace[0..10].join("\n")}"
     end

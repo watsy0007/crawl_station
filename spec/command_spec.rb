@@ -14,7 +14,7 @@ RSpec.describe CrawlStation::Command do
   end
 
   it 'invoke not exist command' do
-    expect(logger).to receive(:warn)
+    expect(CrawlStation::Command).to receive(:invoke).and_raise(NameError).and_return(true)
     CrawlStation::Command.invoke('not_exist', 't66y')
   end
 

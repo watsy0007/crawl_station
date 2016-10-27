@@ -30,7 +30,6 @@ namespace :db do
 
   desc 'db:migrate[module_name] if module_name is nil, migrate all module migrations'
   task :migrate, [:module_name] => :environment do |_t, args|
-    puts args
     version = ENV['VERSION']
     module_name = args[:module_name]
     if module_name.nil?
@@ -40,13 +39,11 @@ namespace :db do
     else
       path = "#{CrawlStation::Utils.module_path(module_name)}/db/migrate"
       path = "#{CrawlStation::Utils.gem_path}/db/migrate" if module_name == 'crawl_station'
-      puts path
       ActiveRecord::Migrator.migrate(path, version ? version.to_i : nil)
     end
   end
 
   task :environment, [:module_name] do |_t, args|
-    puts "env #{args}"
     config = CrawlStation::Utils.database_config args[:module_name]
     ActiveRecord::Base.logger = CrawlStation.logger
     ActiveRecord::Base.establish_connection config

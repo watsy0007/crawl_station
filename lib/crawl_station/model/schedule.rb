@@ -12,7 +12,6 @@ module CrawlStation
       scope :progressings, -> { where(status: :progressing) }
       scope :progressed, -> { where(status: [:done]) }
       scope :recent_1_day, -> { where('created_at > ?', 1.day.ago) }
-
     end
   end
 end

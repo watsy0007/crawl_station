@@ -5,25 +5,32 @@ module CrawlStation
       desc 'create station', 'station [create|new] hello'
       def create(args)
         dir_root = args.first
-        puts "create project #{dir_root}"
-        template_create_path = "#{CrawlStation::Utils.templates_path}/create/dirs"
+        logs "create project #{dir_root}"
+        template_create_path = "#{utils.templates_path}/create/dirs"
         FileUtils.copy_entry template_create_path, dir_root
         render_database(dir_root)
-        puts "cd #{dir_root}"
+        logs "cd #{dir_root}"
         path = "#{Dir.pwd}/#{dir_root}"
         Dir.chdir(path)
-        puts 'bundle install'
-        IO.popen('bundle install').each { |line| puts line.chomp }
-        puts 'done'
+        logs 'bundle install'
+        IO.popen('bundle install').each { |line| logs line.chomp }
+        logs 'done'
       end
 
       private
-      def render_database(dir_root)
-        template_db_path = "#{CS::Utils.templates_path}/create/database.erb.yml"
+      def utils
+        CS::Utils
+      end
 
-        template = IO.read(path)
+      def logs(msg)
+        CS.logger.debug msg
+      end
+
+      def render_database(dir_root)
+        template_db_path = "#{utils.templates_path}/create/database.erb.yml"
         opts = { project_name: dir_root }
-        ERB.new(template).result(OpenStruct.new(opts).instance_eval { binding })
+        context = utils.render_context(template_db_path, opts)
+        utils.render("#{CS.root}/#{dir_root}/config/database.yml", context)
       end
     end
   end
