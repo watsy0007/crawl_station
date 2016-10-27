@@ -2,7 +2,7 @@ require 'ostruct'
 module CrawlStation
   class ParseStruct
     extend Forwardable
-    include ParserClassConcern
+    include Concerns::ParserClassConcern
     attr_accessor :parse
 
     %w(namespace parser item link).each do |method_name|

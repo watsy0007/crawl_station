@@ -65,7 +65,6 @@ module CrawlStation
 
         def load_tasks
           task_path = File.expand_path('../../', __FILE__)
-          puts task_path
           [
             "#{task_path}/tasks/*.rake",
             "#{CrawlStation.root}/lib/tasks/**/*.rake"
