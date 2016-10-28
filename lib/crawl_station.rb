@@ -24,6 +24,8 @@ module CrawlStation # :nodoc:
   autoload :Command
 
   module Adapters
+    extend ActiveSupport::Autoload
+
     module ScheduleAdapters
       extend ActiveSupport::Autoload
 
@@ -44,6 +46,7 @@ module CrawlStation # :nodoc:
       extend ActiveSupport::Autoload
 
       autoload :AbstractAdapter
+      autoload :MemoryAdapter
     end
   end
 

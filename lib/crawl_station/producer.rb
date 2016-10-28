@@ -34,15 +34,19 @@ module CrawlStation
     def parse_item(item)
       retry_times ||= 1
       opts = { proxy: proxy }
+      puts opts
       data = cache(item) { item.parser_class.new.crawl(item.link, opts) }
       @schedule.done(item)
       data
     rescue Exception => e
-      if (retry_times - 1)
+      if (retry_times == 0)
+        Logger.error("%s: %s\n%s" % [item.link, e.message, e.backtrace[0..10].join("\n")])
+        @schedule.failed(item)
+      else
+        @_proxy = nil
+        retry_times -= 1
+        retry
       end
-      @_proxy = nil
-      Logger.error("%s: %s\n%s" % [item.link, e.message, e.backtrace[0..10].join("\n")])
-      @schedule.failed(item)
       nil
     end
 

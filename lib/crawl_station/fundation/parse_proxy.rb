@@ -1,7 +1,7 @@
 module CrawlStation
   class ParseProxy < Array
-    { host: 0, port: 1, username: 2, password: 3 }.each do |k, v|
-      define_method(k) { size >= v ? self[v] : nil }
+    %w(host port username password).each_with_index do |k, i|
+      define_method(k) { size >= i ? self[i] : nil }
     end
 
     def inspect

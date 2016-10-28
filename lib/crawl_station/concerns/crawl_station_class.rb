@@ -61,7 +61,7 @@ module CrawlStation
           Proxy.adapter
         end
 
-        def proxies(item)
+        def proxy=(item)
           Proxy.adapter = item
         end
 
@@ -96,11 +96,17 @@ module CrawlStation
           parsers.each { |p| schedule.push p }
         end
 
+        def config_proxies
+          proxies = @config.proxies || []
+          proxies.each { |p| proxy.push p }
+        end
+
         def boot
           init_application
           load_modules
           config_adapter
           config_parsers
+          config_proxies
         end
       end
     end

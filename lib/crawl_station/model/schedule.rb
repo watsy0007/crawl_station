@@ -11,7 +11,9 @@ module CrawlStation
       scope :waitings, -> { where(status: :waiting) }
       scope :progressings, -> { where(status: :progressing) }
       scope :progressed, -> { where(status: [:done]) }
-      scope :recent_1_day, -> { where('created_at > ?', 1.day.ago) }
+      scope :recents, ->(frequency) { where('created_at > ?', frequency.ago) }
+      scope :recent_1_day, -> { recents(1.day) }
+
     end
   end
 end
