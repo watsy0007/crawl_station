@@ -21,6 +21,7 @@ module CrawlStation
       item = CS::ParseStruct.new(item) if item.is_a?(Hash)
       return sleep(0.2) || true if parsed?(item)
       Logger.debug "start parse #{item.link}"
+      return false
       data = parse_item(item)
       return true if data.nil? || data.empty?
       data = parse_links(data, item.namespace)

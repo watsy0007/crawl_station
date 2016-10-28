@@ -6,16 +6,16 @@ module CrawlStation
 
       class_methods do
         def adapter
-          return @adapter if @adapter
+          return @_adapter if @_adapter
           self.adapter = :memory
-          @adapter
+          @_adapter
         end
 
         def custom_adapter(adapter_name, adapter_module)
           case adapter_name
           when String, Symbol
             adapter_full_name = "#{adapter_name}_adapter"
-            @adapter = adapter_module.const_get(adapter_full_name.camelize).new
+            @_adapter = adapter_module.const_get(adapter_full_name.camelize).new
           end
         rescue NameError => e
           CS.logger.error "Cache missing adapter #{adapter_name}"
