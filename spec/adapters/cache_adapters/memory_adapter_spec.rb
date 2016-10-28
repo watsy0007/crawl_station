@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-RSpec.describe CrawlStation::CacheAdapters::MemoryAdapter do
-  let(:obj) { CrawlStation::CacheAdapters::MemoryAdapter.new }
+RSpec.describe CS::Adapters::CacheAdapters::MemoryAdapter do
+  let(:obj) { CS::Adapters::CacheAdapters::MemoryAdapter.new }
   it 'dynamic define method should exist' do
     %w([]= [] include?).each { |m| expect(obj.respond_to?(m)).to be true }
   end

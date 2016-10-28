@@ -14,13 +14,13 @@ RSpec.describe CrawlStation::Producer do
 
     it 'parser with schedule empty' do
       expect(schedule).to receive(:empty?).and_return(true)
-      producer.loop_parser
+      producer.send :loop_parser
     end
 
     it 'parser with parsed item should work' do
       expect(schedule).to receive(:empty?).and_return(false)
       expect(schedule).to receive(:pop).and_return(nil)
-      producer.loop_parser
+      producer.send :loop_parser
     end
 
     it 'parser item return nil should work' do
@@ -29,7 +29,7 @@ RSpec.describe CrawlStation::Producer do
       allow_any_instance_of(CS::Producer).to receive(:parsed?).and_return(false)
       allow_any_instance_of(CS::Producer).to receive(:parse_item).and_return(nil)
       expect(CS.logger).to receive(:debug)
-      producer.loop_parser
+      producer.send :loop_parser
     end
 
     it 'parser links return nil should work' do
@@ -39,7 +39,7 @@ RSpec.describe CrawlStation::Producer do
       allow_any_instance_of(CS::Producer).to receive(:parse_item).and_return(pages: [])
       allow_any_instance_of(CS::Producer).to receive(:parse_links).and_return({})
       expect(CS.logger).to receive(:debug)
-      producer.loop_parser
+      producer.send :loop_parser
     end
 
     it 'parser data save' do
@@ -53,7 +53,7 @@ RSpec.describe CrawlStation::Producer do
       allow_any_instance_of(CS::Producer).to receive(:parse_item).and_return(pages: [])
       allow_any_instance_of(CS::Producer).to receive(:parse_links).and_return(data: [])
       expect(CS.logger).to receive(:debug)
-      producer.loop_parser
+      producer.send :loop_parser
     end
   end
 
@@ -64,7 +64,7 @@ RSpec.describe CrawlStation::Producer do
     expect(item).to receive(:link).and_return('www.baidu.com')
     expect(item).to receive_message_chain('parser_class.new.crawl') { nil }
     expect(schedule).to receive(:done)
-    producer.parse_item(item)
+    producer.send :parse_item, item
   end
 
   it 'parse not exist item' do
@@ -73,7 +73,7 @@ RSpec.describe CrawlStation::Producer do
     expect(item).to receive(:[]).and_return('www.baidu.com')
     expect(item).to receive(:link).and_return('www.baidu.com')
     expect(schedule).to receive(:failed)
-    producer.parse_item(item)
+    producer.send :parse_item, item
   end
 
   it 'parse links should work' do
@@ -83,21 +83,21 @@ RSpec.describe CrawlStation::Producer do
     }
     expect(cache).to receive(:include?).and_return(false).twice
     expect(schedule).to receive(:push).twice
-    value = producer.parse_links(data, 't66y')
+    value = producer.send :parse_links, data, 't66y'
     expect(value.empty?).to eq true
   end
 
   it 'cache should work' do
     data = { link: 'www.baidu.com' }
     expect(cache).to receive(:[]=).twice
-    value = producer.cache(data) { data }
+    value = producer.send(:cache, data) { data }
     expect(value[:link]).to eq data[:link]
   end
 
   it 'parsed? should work' do
     data = { link: 'www.baidu.com' }
     expect(cache).to receive(:include?).and_return(true)
-    expect(producer.parsed?(data)).to be true
-    expect(producer.parsed?(nil)).to be true
+    expect(producer.send :parsed?, data).to be true
+    expect(producer.send :parsed?, nil).to be true
   end
 end

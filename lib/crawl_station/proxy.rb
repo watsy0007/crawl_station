@@ -1,13 +1,11 @@
 module CrawlStation
-  module Cache
+  module Proxy
     extend self
     extend Forwardable
     include Concerns::AdapterConcern
 
     def adapter=(adapter_name)
-      custom_adapter(adapter_name, CrawlStation::Adapters::CacheAdapters)
+      custom_adapter(adapter_name, CrawlStation::Adapters::ProxyAdapters)
     end
-
-    def_delegators :@adapter, :[]=, :[], :include?
   end
 end

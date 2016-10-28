@@ -18,15 +18,33 @@ module CrawlStation # :nodoc:
   autoload :Launcher
   autoload :Cache
   autoload :Schedule
+  autoload :Proxy
   autoload :ParseStruct, 'crawl_station/fundation/parse_struct'
+  autoload :ParseProxy, 'crawl_station/fundation/parse_proxy'
   autoload :Command
 
-  module ScheduleAdapters
-    extend ActiveSupport::Autoload
+  module Adapters
+    module ScheduleAdapters
+      extend ActiveSupport::Autoload
 
-    autoload :AbstractAdapter
-    autoload :MemoryAdapter
-    autoload :DbAdapter
+      autoload :AbstractAdapter
+      autoload :MemoryAdapter
+      autoload :DbAdapter
+    end
+
+    module CacheAdapters
+      extend ActiveSupport::Autoload
+
+      autoload :AbstractAdapter
+      autoload :MemoryAdapter
+      autoload :DbAdapter
+    end
+
+    module ProxyAdapters
+      extend ActiveSupport::Autoload
+
+      autoload :AbstractAdapter
+    end
   end
 
   module Command
@@ -34,14 +52,6 @@ module CrawlStation # :nodoc:
 
     autoload :Create
     autoload :Generate
-  end
-
-  module CacheAdapters
-    extend ActiveSupport::Autoload
-
-    autoload :AbstractAdapter
-    autoload :MemoryAdapter
-    autoload :DbAdapter
   end
 
   module Concerns

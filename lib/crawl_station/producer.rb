@@ -2,18 +2,20 @@ module CrawlStation
   class Producer
     include Celluloid
 
-    attr_accessor :schedule, :cache, :proxies, :proxy
+    attr_accessor :schedule, :cache, :proxies, :_proxy
 
-    def initialize(schedule, cache, proxies = nil)
+    def initialize(schedule, cache, proxy = nil)
       @schedule = schedule
       @cache = cache
-      @proxies = proxies
+      @proxies = proxy
     end
 
     def start
       loop { break unless loop_parser }
       Logger.debug "#{self} done"
     end
+
+    private
 
     def loop_parser
       return sleep(0.2) || true if @schedule.empty?
@@ -30,10 +32,15 @@ module CrawlStation
     end
 
     def parse_item(item)
-      data = cache(item) { item.parser_class.new.crawl(item.link) }
+      retry_times ||= 1
+      opts = { proxy: proxy }
+      data = cache(item) { item.parser_class.new.crawl(item.link, opts) }
       @schedule.done(item)
       data
     rescue Exception => e
+      if (retry_times - 1)
+      end
+      @_proxy = nil
       Logger.error("%s: %s\n%s" % [item.link, e.message, e.backtrace[0..10].join("\n")])
       @schedule.failed(item)
       nil
@@ -59,6 +66,10 @@ module CrawlStation
       data = yield if block_given?
       @cache[item['link']] = data
       data
+    end
+
+    def proxy
+      @_proxy ||= @proxies.pop
     end
   end
 end

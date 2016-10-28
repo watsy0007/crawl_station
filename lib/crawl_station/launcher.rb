@@ -12,7 +12,7 @@ module CrawlStation
       CS.logger.debug('station starting ... ')
 
       CS.concurrent_count.times do
-        supervisor = CS::Producer.pool args: [CS.schedule, CS.cache]
+        supervisor = CS::Producer.pool args: [CS.schedule, CS.cache, CS.proxy]
         supervisor.async.start
       end
       loop do
