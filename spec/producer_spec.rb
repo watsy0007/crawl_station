@@ -57,13 +57,15 @@ RSpec.describe CrawlStation::Producer do
     end
   end
 
-  it 'parse item correct' do
+  it 'parse item error', retry: 1 do
     item = double()
-    expect(cache).to receive(:[]=).twice
-    expect(item).to receive(:[]).and_return('www.baidu.com').twice
-    expect(item).to receive(:link).and_return('www.baidu.com')
-    expect(item).to receive_message_chain('parser_class.new.crawl') { nil }
-    expect(schedule).to receive(:done)
+    expect(cache).to receive(:[]=).at_least(2).times
+    expect(item).to receive(:[]).and_return('www.baidu.com').at_least(2).times
+    allow_any_instance_of(CrawlStation::Producer).to receive(:http_proxy).and_return(nil)
+    expect(item).to receive(:link).and_return('www.baidu.com').at_least(2).times
+    allow(item).to receive_message_chain(:parser_class, :new, :crawl).and_return(nil)
+    expect(schedule).to receive(:failed)
+    expect(schedule).to receive(:done).and_raise(RuntimeError).twice
     producer.send :parse_item, item
   end
 

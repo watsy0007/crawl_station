@@ -33,7 +33,7 @@ module CrawlStation
 
     def parse_item(item)
       retry_times ||= 1
-      opts = { proxy: proxy }
+      opts = { proxy: http_proxy }
       puts opts
       data = cache(item) { item.parser_class.new.crawl(item.link, opts) }
       @schedule.done(item)
@@ -72,7 +72,7 @@ module CrawlStation
       data
     end
 
-    def proxy
+    def http_proxy
       @_proxy ||= @proxies.pop
     end
   end

@@ -17,8 +17,8 @@ module CrawlStation
             adapter_full_name = "#{adapter_name}_adapter"
             @_adapter = adapter_module.const_get(adapter_full_name.camelize).new
           end
-        # rescue NameError => e
-          # CS.logger.error "Cache missing adapter #{adapter_name}"
+        rescue NameError => e
+          CS.logger.error "Cache missing adapter #{adapter_name}"
         end
       end
     end
