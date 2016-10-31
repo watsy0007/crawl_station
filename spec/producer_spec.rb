@@ -3,7 +3,8 @@ require 'spec_helper'
 RSpec.describe CrawlStation::Producer do
   let(:schedule) { double() }
   let(:cache) { double() }
-  let(:producer) { CS::Producer.new(schedule, cache) }
+  let(:proxies) { double() }
+  let(:producer) { CS::Producer.new(schedule, cache, proxies) }
   before { allow_any_instance_of(Celluloid::Actor).to receive(:sleep).and_return(true) }
   it 'start should be work' do
     allow_any_instance_of(CS::Producer).to receive(:loop_parser).and_return(false)
@@ -69,12 +70,24 @@ RSpec.describe CrawlStation::Producer do
     producer.send :parse_item, item
   end
 
-  it 'parse not exist item' do
+  it 'parse not exist item', retry: 1 do
     item = double()
-    expect(cache).to receive(:[]=)
-    expect(item).to receive(:[]).and_return('www.baidu.com')
+    allow_any_instance_of(CrawlStation::Producer).to receive(:http_proxy).and_return(nil)
+    expect(cache).to receive(:[]=).twice
+    expect(item).to receive(:[]).and_return('www.baidu.com').twice
     expect(item).to receive(:link).and_return('www.baidu.com')
     expect(schedule).to receive(:failed)
+    producer.send :parse_item, item
+  end
+
+  it 'parser item correct' do
+    item = double()
+    expect(cache).to receive(:[]=).at_least(2).times
+    expect(item).to receive(:[]).and_return('www.baidu.com').at_least(2).times
+    allow_any_instance_of(CrawlStation::Producer).to receive(:http_proxy).and_return(nil)
+    expect(item).to receive(:link).and_return('www.baidu.com')
+    allow(item).to receive_message_chain(:parser_class, :new, :crawl).and_return(nil)
+    expect(schedule).to receive(:done)
     producer.send :parse_item, item
   end
 
@@ -101,5 +114,10 @@ RSpec.describe CrawlStation::Producer do
     expect(cache).to receive(:include?).and_return(true)
     expect(producer.send :parsed?, data).to be true
     expect(producer.send :parsed?, nil).to be true
+  end
+
+  it 'http proxy ' do
+    expect(proxies).to receive(:pop)
+    producer.send(:http_proxy)
   end
 end
